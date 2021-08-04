@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover">
+  <title>My LIFF App</title>
+  <div align="center">
+  <style>
+   body {padding: 25px;background-color: #46abb0;color: yellow;}
+   .button {width: 60%;padding: 8px 0;margin: 2px auto;font-size: 16px;border-radius: 10px;
+   background-color: #ffd86c;}
+   button {width: 100%;padding: 8px 0;margin: 2px auto;font-size: 20px;border-radius: 12px;
+   background-color: #d933ff;}
+  </style>
+  </div>
+  <!-- LINE Tag Base Code -->
+<!-- Do Not Modify -->
+<script>
+ (function(g,d,o){
+  g._ltq=g._ltq||[];g._lt=g._lt||function(){g._ltq.push(arguments)};
+  var h=location.protocol==='https:'?'https://d.line-scdn.net':'http://d.line-cdn.net';
+  var s=d.createElement('script');s.async=1;
+  s.src=o||h+'/n/line_tag/public/release/v1/lt.js';
+  var t=d.getElementsByTagName('script')[0];t.parentNode.insertBefore(s,t);
+    })(window, document);
+ _lt('init', {
+  customerType: 'account',
+  tagId: '00e9ba43-f042-4e3d-811f-c48ee51d1c33'
+ } );
+ _lt('send', 'pv', ['00e9ba43-f042-4e3d-811f-c48ee51d1c33']);
+ </script>
+ <noscript>
+  <img height="1" width="1" style="display:none"
+       src="https://tr.line.me/tag.gif?c_t=lap&t_id=00e9ba43-f042-4e3d-811f-c48ee51d1c33&e=pv&noscript=1" />
+ </noscript>
+ <!-- End LINE Tag Base Code -->
+<script>
+_lt('send', 'cv', {
+  type: 'Conversion'
+},['00e9ba43-f042-4e3d-811f-c48ee51d1c33']);
+</script>
+</head>
+<body>
+  <button id="btnShare" onclick="sendShare()">Share Secret Contents</button>
+  <button id="btnLogin" onclick="liff.login()">Log In</button>
+  <button id="btnLogOut" onclick="logOut()">Log Out</button>
+  <script src=" https://static.line-scdn.net/liff/edge/versions/2.12.0/sdk.js"></script>
+  <script>
+    async function sendShare() {
+      const result = await liff.shareTargetPicker([
+        {
+          "type": "flex",
+          "altText": "Flex Message",
+          "contents": {
+  "type": "bubble",
+  "size": "giga",
+  "body": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "image",
+        "url": "https://dl.dropbox.com/s/498kzio8y9s9w1w/APNG400px2.png",
+        "size": "full",
+        "aspectMode": "cover",
+        "aspectRatio": "1:1",
+        "gravity": "center",
+        "animated": true,
+        "action": {
+          "type": "uri",
+          "label": "action",
+          "uri": "https://lin.ee/oVNnn9D"
+        }
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [],
+        "position": "absolute",
+        "width": "100%",
+        "height": "40%",
+        "offsetBottom": "0px",
+        "offsetStart": "0px",
+        "offsetEnd": "0px"
+      },
+      {
+        "type": "box",
+        "layout": "horizontal",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": []
+              }
+            ],
+            "spacing": "xs"
+          }
+        ],
+        "position": "absolute",
+        "offsetBottom": "0px",
+        "offsetStart": "0px",
+        "offsetEnd": "0px",
+        "paddingAll": "20px"
+      }
+    ],
+    "paddingAll": "0px"
+  }
+}
+        }
+      ])
+      if (result) {
+        alert(`[${result.status}] Message sent!`)
+      } else {
+        const [majorVer, minorVer, patchVer] = (liff.getLineVersion() || "").split('.');
+
+        if (minorVer === undefined) {
+          alert('ShareTargetPicker was canceled in external browser')
+          return
+        }
+
+        if (parseInt(majorVer) >= 10 && parseInt(minorVer) >= 10 && parseInt(patchVer) > 0) {
+          alert('ShareTargetPicker was canceled in LINE app')
+        }
+      }
+    }
+    function logOut() {
+      liff.logout()
+      window.location.reload()
+    }
+    async function main() {
+      await liff.init({ liffId: "1655940347-18ebR2Pq" })
+      if (liff.isLoggedIn()) {
+        document.getElementById("btnShare").style.display = "block"
+        if (!liff.isInClient()) {
+          document.getElementById("btnLogOut").style.display = "block"
+        }
+      } else {
+        document.getElementById("btnLogin").style.display = "block"
+      }
+    }
+    main()
+  </script>
+</body>
+</html>
